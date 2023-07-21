@@ -4,8 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:instagram_clone/resources/auth_metods.dart';
+import 'package:instagram_clone/screens/login_screen.dart';
 import 'package:instagram_clone/utils/utils.dart';
 
+import '../responsive/mobile_screen_layout.dart';
+import '../responsive/responsive_layout_screen.dart';
+import '../responsive/web_screen_layout.dart';
 import '../utils/colors.dart';
 import '../widgets/text_field_input.dart';
 
@@ -30,6 +34,10 @@ class _SignupScreenState extends State<SignupScreen> {
     _passwordController.dispose();
     _bioController.dispose();
     _usernameController.dispose();
+  }
+  void navigateToLogin() {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => const LoginScreen()));
   }
 
   void selectImage() async {
@@ -56,6 +64,15 @@ class _SignupScreenState extends State<SignupScreen> {
     });
     if (res != 'success') {
       showSnackBar(res, context);
+    } else {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) => const ResponsiveLayout(
+            webScreenLayout: WebScreenLayout(),
+            mobileScreenLayout: MobileScreenLayout(),
+          ),
+        ),
+      );
     }
   }
 
@@ -102,9 +119,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 24,
-                ),
+                const SizedBox(height: 24),
                 TextFieldInput(
                   hintText: "Enter your username",
                   textInputType: TextInputType.text,
@@ -129,9 +144,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   textInputType: TextInputType.text,
                   textEditingController: _bioController,
                 ),
-                const SizedBox(
-                  height: 24,
-                ),
+                const SizedBox(height: 24),
                 InkWell(
                   onTap: signUpUser,
                   child: Container(
@@ -151,13 +164,38 @@ class _SignupScreenState extends State<SignupScreen> {
                               color: primaryColor,
                             ),
                           )
-                        : const Text("Sign up"),
+                        : const Text("SignUp"),
                   ),
                 ),
                 Flexible(
                   flex: 2,
                   child: Container(),
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 8,
+                      ),
+                      child: const Text("Don't you have an account? "),
+                    ),
+                    GestureDetector(
+                      onTap: navigateToLogin,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 8,
+                        ),
+                        child: const Text(
+                          "Login",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                )
               ],
             )),
       ),
