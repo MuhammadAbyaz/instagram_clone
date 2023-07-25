@@ -11,10 +11,8 @@ class StorageMethods {
 
 // adding images to firebase
 
-  Future<String> uploadImageToStorage(
-      String childName, Uint8List file, bool isPost) async {
-    Reference ref =
-        _storage.ref().child(childName).child(_auth.currentUser!.uid);
+  Future<String> uploadImageToStorage(String childName, Uint8List file, bool isPost) async {
+    Reference ref = _storage.ref().child(childName).child(_auth.currentUser!.uid);
 
     UploadTask uploadTask = ref.putData(file);
 

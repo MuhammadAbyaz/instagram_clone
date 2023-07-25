@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:instagram_clone/resources/auth_metods.dart';
+import 'package:instagram_clone/resources/auth_methods.dart';
 import 'package:instagram_clone/screens/login_screen.dart';
 import 'package:instagram_clone/utils/utils.dart';
 
@@ -54,7 +54,7 @@ class _SignupScreenState extends State<SignupScreen> {
     String res = await AuthMethod().signUpUser(
       email: _emailController.text,
       password: _passwordController.text,
-      userName: _usernameController.text,
+      username: _usernameController.text,
       bio: _bioController.text,
       file: _image!,
     );
